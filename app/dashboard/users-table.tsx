@@ -10,8 +10,8 @@ import {
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { SelectUser } from '@/lib/db';
-import { deleteUser } from './actions';
 import { useRouter } from 'next/navigation';
+import Dropdown from '@/components/ui/dropdown';
 
 export function UsersTable({
   users,
@@ -23,7 +23,7 @@ export function UsersTable({
   const router = useRouter();
 
   function onClick() {
-    router.replace(`/?offset=${offset}`);
+    router.replace(`/dashboard?offset=${offset}`);
   }
 
   return (
@@ -35,7 +35,7 @@ export function UsersTable({
               <TableHead className="max-w-[150px]">Name</TableHead>
               <TableHead className="hidden md:table-cell">Email</TableHead>
               <TableHead className="hidden md:table-cell">Username</TableHead>
-              <TableHead></TableHead>
+              <TableHead className="hidden md:table-cell">Role</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -60,7 +60,6 @@ export function UsersTable({
 
 function UserRow({ user }: { user: SelectUser }) {
   const userId = user.id;
-  const deleteUserWithId = deleteUser.bind(null, userId);
 
   return (
     <TableRow>
@@ -68,16 +67,8 @@ function UserRow({ user }: { user: SelectUser }) {
       <TableCell className="hidden md:table-cell">{user.email}</TableCell>
       <TableCell>{user.username}</TableCell>
       <TableCell>
-        <Button
-          className="w-full"
-          size="sm"
-          variant="outline"
-          formAction={deleteUserWithId}
-          disabled
-        >
-          Delete
-        </Button>
-      </TableCell>
+        <Dropdown text={user.role} items={["Unverifed"]}/>
+        </TableCell>
     </TableRow>
   );
 }

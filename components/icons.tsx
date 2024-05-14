@@ -60,6 +60,39 @@ export function SearchIcon(props: React.SVGProps<SVGSVGElement>) {
   );
 }
 
+export function PlusIcon() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      x="0px"
+      y="0px"
+      width="100"
+      height="100"
+      viewBox="0 0 30 30"
+    >
+      <path d="M15,3C8.373,3,3,8.373,3,15c0,6.627,5.373,12,12,12s12-5.373,12-12C27,8.373,21.627,3,15,3z M21,16h-5v5 c0,0.553-0.448,1-1,1s-1-0.447-1-1v-5H9c-0.552,0-1-0.447-1-1s0.448-1,1-1h5V9c0-0.553,0.448-1,1-1s1,0.447,1,1v5h5 c0.552,0,1,0.447,1,1S21.552,16,21,16z"></path>
+    </svg>
+  );
+}
+export function ArrowLeft() {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="3"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      className="feather feather-arrow-left"
+    >
+      <line x1="19" y1="12" x2="5" y2="12"></line>
+      <polyline points="12 19 5 12 12 5"></polyline>
+    </svg>
+  );
+}
 export function Spinner() {
   return (
     <div className="absolute right-0 top-0 bottom-0 flex items-center justify-center">
@@ -86,7 +119,24 @@ export function Spinner() {
     </div>
   );
 }
-
+export function DiagramIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      {...props}
+      xmlns="http://www.w3.org/2000/svg"
+      version="1.1"
+      x="0px"
+      y="0px"
+      viewBox="0 0 100 125"
+      enableBackground="new 0 0 100 100"
+    >
+      <path
+        fill="#000000"
+        d="M79.486,65.554l0.005-19.491h-26.12V33.924c6.416-1.628,11.162-7.442,11.162-14.365  c0-8.185-6.634-14.82-14.819-14.82s-14.821,6.635-14.821,14.82c0,6.923,4.747,12.736,11.164,14.365v12.138H19.941v19.491  c-6.417,1.629-11.164,7.441-11.164,14.365c0,8.185,6.635,14.82,14.82,14.82c8.185,0,14.82-6.636,14.82-14.82  c0-6.924-4.747-12.736-11.163-14.365V53.627h44.917v11.927c-6.415,1.629-11.162,7.441-11.162,14.365  c0,8.185,6.635,14.82,14.819,14.82c8.186,0,14.821-6.636,14.821-14.82C90.65,72.995,85.903,67.183,79.486,65.554z"
+      />
+    </svg>
+  );
+}
 export function Logo() {
   return (
     <svg

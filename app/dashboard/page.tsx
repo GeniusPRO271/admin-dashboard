@@ -1,6 +1,8 @@
 import { getUsers } from '@/lib/db';
 import { UsersTable } from './users-table';
 import { Search } from './search';
+import { Button } from '@/components/ui/button';
+import CreateFormView from './create-form';
 
 export default async function IndexPage({
   searchParams
@@ -13,11 +15,9 @@ export default async function IndexPage({
 
   return (
     <main className="flex flex-1 flex-col p-4 md:p-6">
-      <div className="flex items-center mb-8">
-        <h1 className="font-semibold text-lg md:text-2xl">Users</h1>
-      </div>
+      <CreateFormView />
       <div className="w-full mb-4">
-        <Search value={searchParams.q} />
+        <Search value={searchParams.q} route="" />
       </div>
       <UsersTable users={users} offset={newOffset} />
     </main>
