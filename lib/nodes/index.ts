@@ -3,63 +3,84 @@ import { PositionLoggerNode } from "./PositionLoggerNode";
 import {SpaceInfo, getSpacesFlow } from "../db";
 import { generateConnections } from "../edges";
 
-const generateNodes = (spaces:SpaceInfo[]) => {
-  const nodes : Node[] = [];
-  const processedSpaces = new Set(); // To keep track of processed spaces
 
-  const traverseSpaces = (space:SpaceInfo, level:number) => {
-    const nodeId = space.ID.toString();
+function arrangeNodes(roots: SpaceInfo[]): Node[] {
+  const nodes: Node[] = [];
+  let prevDimensions: { width: number, height: number } = { width: 0, height: 0 };
 
-    // Check if space has already been processed
-    if (processedSpaces.has(nodeId)) {
-      return;
-    }
-
-    // Calculate x position based on the number of nodes at the same level
-    const siblingsAtLevel = nodes.filter(node => node.position.y === level * 100);
-    const xGap = 300;
-    const xOffset = (siblingsAtLevel.length * xGap) - (xGap * siblingsAtLevel.length / 2);
-    const node = {
-      id: nodeId,
-      data: { label: space.Name },
-      position: { x: xOffset, y: level * 100 }, // Adjust position based on level and x offset
-    };
-
-    nodes.push(node);
-    processedSpaces.add(nodeId);
-
-    if (space.Devices && space.Devices.length > 0) {
-      space.Devices.forEach((device) => {
-        const deviceId = `device-${device.ID}`;
-        const deviceNode = {
-          id: deviceId,
-          data: { label: device.Name },
-          position: { x: xOffset + xGap, y: (level + 1) * 100 }, // Adjust device position based on level and x offset
-        };
-
-        nodes.push(deviceNode);
-      });
-    }
-
-    if (space.SubSpaces && space.SubSpaces.length > 0) {
-      space.SubSpaces.forEach((subSpace) => {
-        traverseSpaces(subSpace, level + 1); // Increment level for subspaces
-      });
-    }
-  };
-
-  spaces.forEach((space) => {
-    traverseSpaces(space, 0); // Start traversal with level 0
+  roots.forEach((root, rootIndex) => {
+    const buildingNodes = traverse(root, 0, rootIndex, prevDimensions);
+    nodes.push(...buildingNodes);
   });
 
   return nodes;
-};
+}
 
+function traverse(space: SpaceInfo, depth: number, rootIndex: number, prevDimensions: { width: number, height: number }): Node[] {
+  const nodes: Node[] = [];
+
+  const nodeId = space.ID.toString();
+  const parentId = space.ParentSpaceID ? space.ParentSpaceID.toString() : undefined;
+  const x = prevDimensions.width + rootIndex * 200 + 80;
+  const y = depth * 100;
+
+  nodes.push({ id: nodeId, data: { label: space.Name, parentId }, position: { x, y } });
+
+  let subWidth = 0;
+  let subHeight = 0;
+
+  if (space.SubSpaces) {
+    let yOffset = y + 100; // Initial y-offset for child nodes
+    space.SubSpaces.forEach(subSpace => {
+      const subNodes = traverse(subSpace, depth + 1, rootIndex, prevDimensions);
+      nodes.push(...subNodes);
+
+      // Update subWidth to accommodate the widest child node
+      const subSpaceWidth = subNodes[subNodes.length - 1].position.x + 100 - x;
+      if (subSpaceWidth > subWidth) {
+        subWidth = subSpaceWidth;
+      }
+
+      // Update subHeight to accommodate the total height of child nodes
+      const lastSubNode = subNodes[subNodes.length - 1];
+      const subSpaceHeight = lastSubNode.position.y + 100 - y;
+      if (subSpaceHeight > subHeight) {
+        subHeight = subSpaceHeight;
+      }
+
+      // Update y-offset for the next child nodes
+      yOffset = Math.max(yOffset, lastSubNode.position.y + 100);
+    });
+
+
+  } else {
+    subWidth = 100;
+    subHeight = 100;
+  }
+
+  if (space.Devices && space.Devices.length > 0) {
+    const deviceY = (depth + 1) * 100; // Place devices one level below subspaces
+    space.Devices.forEach(device => {
+      const deviceNode = {
+        id: 'device-' + device.ID.toString(),
+        data: { label: device.Name, parentId: nodeId },
+        position: { x: x, y: deviceY }
+      };
+      nodes.push(deviceNode);
+    });
+  }
+  
+  // Update prevDimensions with the dimensions of the current rectangle
+  prevDimensions.width = x + subWidth;
+  prevDimensions.height = y + subHeight;
+
+  return nodes;
+}
 
 export async function initSpaces() : Promise<{reactFlowNodes: Node[], connections: Edge[]}>{
     const spaces : SpaceInfo[] = await getSpacesFlow()
     if (spaces.length > 0) {
-      const reactFlowNodes = generateNodes(spaces);
+      const reactFlowNodes = arrangeNodes(spaces);
       const connections = generateConnections(spaces);
       return {reactFlowNodes, connections}
     } else return {reactFlowNodes:[], connections:[]}

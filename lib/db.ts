@@ -310,7 +310,7 @@ export async function deleteUserOfSpacebyId(userId: number, spaceId: number) {
     const body = {
       "SpaceID": spaceId,
       "UserID": userId,
-      "Propagate": false
+      "Propagate": true
     };
 
     const response = await axios.delete(`${baseURL}/admin/v1/space/delete-user-whitelist`, {
@@ -331,7 +331,7 @@ export async function addUserToSpace(userId: number, spaceId: number) {
     const body = {
       "SpaceID": spaceId,
       "UserID": userId,
-      "Propagate": false
+      "Propagate": true
     };
 
     const response = await axios.post(`${baseURL}/admin/v1/space/add-user-whitelist`, body);

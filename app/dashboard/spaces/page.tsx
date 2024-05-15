@@ -11,7 +11,7 @@ export default async function SpacePage({
   const search = searchParams.q ?? '';
   const offset = searchParams.offset ?? 0;
   const { spaces, newOffset } = await getSpaces(search, Number(offset));
-  const { spaces: dropdownSpaces} = await getSpaces("", 0);
+  const { spaces:dropdownSpaces} = await getSpaces("", 0);
 
   return (
     <main className="flex flex-1 flex-col p-4 md:p-6 ">
