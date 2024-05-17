@@ -28,7 +28,7 @@ export async function User() {
           await signOut();
         }}
       >
-        <Button variant="outline">Sign Out {user.name + session.role}</Button>
+        <Button variant="outline">Sign Out</Button>
       </form>
     </div>
   );
