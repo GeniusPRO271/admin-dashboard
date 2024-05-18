@@ -8,7 +8,7 @@ function Dropdown({ text, items, onClick }: { text: string; items: string[], onC
       <button
         id="dropdownDefaultButton"
         data-dropdown-toggle="dropdown"
-        className="focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        className={`${isOpen && "focus:ring-purple-600 focus:ring-1"} border  focus:outline-none rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center`}
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
       >
@@ -32,16 +32,16 @@ function Dropdown({ text, items, onClick }: { text: string; items: string[], onC
       {isOpen && items.length > 0 && (
         <div
           id="dropdown"
-          className="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
+          className="z-10 bg-card rounded-lg shadow w-fit"
         >
           <ul
-            className="py-2 text-sm text-gray-700 dark:text-gray-200 max-h-20 overflow-y-auto"
+            className="py-2 text-sm text-card-foreground max-h-20 overflow-y-auto"
             aria-labelledby="dropdownDefaultButton"
           >
             {items.map((item: string, index:number) => {
               return (
                 <li 
-                className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                className="block px-6 py-2 hover:bg-card-hover hover:text-white"
                 onClick={onClick}
                 value={item}
                 key={index}

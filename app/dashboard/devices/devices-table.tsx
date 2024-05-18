@@ -40,9 +40,9 @@ export function DevicesTable({
   return (
     <>
       <Button
-        className="mb-4"
-        size="sm"
-        variant="outline"
+        className="mb-4 border hover:bg-card-hover focus:border-purple-600"
+        size="lg"
+        variant="default"
         onClick={() => onSyncDeviceClicked()}
         disabled={isLoading}
       >

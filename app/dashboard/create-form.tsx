@@ -170,12 +170,12 @@ function CreateFormView() {
       <div className="flex items-center mb-8">
         <h1 className="font-semibold text-lg md:text-2xl w-full">Users</h1>
         <Button
-          className=""
-          size="sm"
-          variant="outline"
+          className="border bg-blue-600 hover:bg-blue-500"
+          size="lg"
+          variant="default"
           onClick={() => setIsOpen((prev: boolean) => !prev)}
         >
-          Create User
+          Create user
         </Button>
       </div>
     </>

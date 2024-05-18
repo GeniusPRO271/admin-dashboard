@@ -2,16 +2,26 @@
 
 import { Button } from '@/components/ui/button';
 import Dropdown from '@/components/ui/dropdown';
-import { CreateSpace, CreateUser, SpaceInfo, SpaceRegister, UserRegister } from '@/lib/db';
+import {
+  CreateSpace,
+  CreateUser,
+  SpaceInfo,
+  SpaceRegister,
+  UserRegister
+} from '@/lib/db';
 import { space } from 'postcss/lib/list';
 import React, { useState } from 'react';
 
-function CreateSpaceFormView({ dropdownSpaces} : { dropdownSpaces : SpaceInfo[]}) {
+function CreateSpaceFormView({
+  dropdownSpaces
+}: {
+  dropdownSpaces: SpaceInfo[];
+}) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
-  const [dropDownVal, setDropDownVal] = useState<SpaceInfo>()
+  const [dropDownVal, setDropDownVal] = useState<SpaceInfo>();
 
-  const handleCreateAccount = async (e:any) => {
+  const handleCreateAccount = async (e: any) => {
     setLoading(true);
     // Get form data
     const name = document.getElementById('name') as HTMLInputElement;
@@ -21,41 +31,42 @@ function CreateSpaceFormView({ dropdownSpaces} : { dropdownSpaces : SpaceInfo[]}
 
     const body: SpaceRegister = {
       Name: name.value,
-      ParentSpaceID: dropDownVal ? dropDownVal.ID : undefined 
+      ParentSpaceID: dropDownVal ? dropDownVal.ID : undefined
     };
 
-    await CreateSpace(body)
+    await CreateSpace(body);
     setLoading(false);
     // Additional logic to create account...
   };
 
-  const handleDropDownVal = (e:any) => {
-    console.log(e.target.innerHTML)
-    const spaceVal = dropdownSpaces.find((space) => space.Name == e.target.innerHTML)
+  const handleDropDownVal = (e: any) => {
+    console.log(e.target.innerHTML);
+    const spaceVal = dropdownSpaces.find(
+      (space) => space.Name == e.target.innerHTML
+    );
     if (spaceVal) {
-        setDropDownVal(spaceVal)
+      setDropDownVal(spaceVal);
     }
-  }
+  };
   return (
     <>
       {isOpen && dropdownSpaces && (
         <div className="flex flex-col absolute h-fit w-2/4 z-50 place-self-center border rounded-lg border-transparent p-3">
-          <div className="place-self-center w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+          <div className="place-self-center w-full bg-card rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0">
             <div className="flex w-full items-end justify-end px-2">
               <span className="cursor-pointer" onClick={() => setIsOpen(false)}>
                 x
               </span>
             </div>
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-              <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+              <h1 className="text-xl font-bold leading-tight tracking-tight text-background-foreground md:text-2xl">
                 Create an account for user
               </h1>
               <form className="space-y-4 md:space-y-6" action="#">
-
                 <div>
                   <label
                     htmlFor="name"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    className="block mb-2 text-sm font-medium text-card-foreground dark:text-white"
                   >
                     Space Name
                   </label>
@@ -63,18 +74,24 @@ function CreateSpaceFormView({ dropdownSpaces} : { dropdownSpaces : SpaceInfo[]}
                     type="text"
                     name="name"
                     id="name"
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-card border  text-card-foreground sm:text-sm rounded-lg outline-none focus:ring-purple-600 focus:border-purple-600 block w-full p-2.5"
                     placeholder="Classroom 100"
                     required
                   />
                 </div>
                 <div>
-                    <Dropdown text={dropDownVal ? dropDownVal.Name : 'Root'} items={dropdownSpaces.map((space) => space.Name)} onClick={handleDropDownVal}/>
+                  <Dropdown
+                    text={dropDownVal ? dropDownVal.Name : 'Root'}
+                    items={dropdownSpaces.map((space) => space.Name)}
+                    onClick={handleDropDownVal}
+                  />
                 </div>
                 <Button
+                  className="w-full bg-card border focus:border-purple-600 hover:bg-purple-600"
+                  size="lg"
+                  variant="default"
                   onClick={handleCreateAccount}
                   disabled={loading}
-                  className="w-full text-white bg-black hover:bg-slate-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
                 >
                   {loading ? (
                     <svg
@@ -109,9 +126,9 @@ function CreateSpaceFormView({ dropdownSpaces} : { dropdownSpaces : SpaceInfo[]}
       <div className="flex items-center mb-8">
         <h1 className="font-semibold text-lg md:text-2xl w-full">Spaces</h1>
         <Button
-          className=""
-          size="sm"
-          variant="outline"
+          className="border bg-blue-600 hover:bg-blue-500"
+          size="lg"
+          variant="default"
           onClick={() => setIsOpen((prev: boolean) => !prev)}
         >
           Create space

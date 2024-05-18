@@ -1,4 +1,3 @@
-
 import { Button } from '@/components/ui/button';
 import {
   Table,
@@ -19,7 +18,7 @@ function AllowedUserTableView({ spaceId }: { spaceId: string }) {
       setIsLoading(true);
       const { users, allowed } = await getUsersAndAllowed(spaceId);
       setUsers(users);
-      setAllowed(allowed)
+      setAllowed(allowed);
       setIsLoading(false);
     }
     getUser();
@@ -31,7 +30,7 @@ function AllowedUserTableView({ spaceId }: { spaceId: string }) {
   if (!isLoading && users && allowed) {
     return (
       <>
-        <form className="border shadow-sm rounded-lg bg-white h-full w-auto">
+        <form className="rounded-lg bg-card h-full w-auto">
           <Table>
             <TableHeader>
               <TableRow>
@@ -58,7 +57,7 @@ function AllowedUserTableView({ spaceId }: { spaceId: string }) {
     );
   } else {
     return (
-      <div className="border shadow-sm rounded-lg bg-white h-full w-96 flex justify-center items-center">
+      <div className=" bg-card h-full w-full flex justify-center items-center">
         <svg
           className="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-700"
           xmlns="http://www.w3.org/2000/svg"
@@ -91,35 +90,31 @@ function UserRow({
   setAllowed
 }: {
   user: SelectUser;
-  spaceId: number
-  allowed: SelectUser[]
-  setAllowed: React.Dispatch<React.SetStateAction<SelectUser[]>>
+  spaceId: number;
+  allowed: SelectUser[];
+  setAllowed: React.Dispatch<React.SetStateAction<SelectUser[]>>;
 }) {
-
   async function getAllowed() {
-    console.log("getAllowed()")
-    setIsLoading(true)
+    console.log('getAllowed()');
+    setIsLoading(true);
     const { allowed } = await getUsersAndAllowed(spaceId.toString());
     setAllowed(allowed);
     setIsLoading(false);
   }
 
   const userId = user.id;
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const status = allowed.some((user) => user.id === userId) ? true : false;
 
-  async function HandleAddUserSpace(){
+  async function HandleAddUserSpace() {
     setIsLoading(true);
-    if (status){
-
-      await deleteUserSpace(spaceId, userId)
+    if (status) {
+      await deleteUserSpace(spaceId, userId);
     } else {
-
       await AddUserSpace(spaceId, userId);
     }
-    await getAllowed()
+    await getAllowed();
   }
-
 
   return (
     <TableRow>
@@ -127,36 +122,42 @@ function UserRow({
       <TableCell className="hidden md:table-cell">{user.email}</TableCell>
       <TableCell>{user.role}</TableCell>
       <TableCell>
-        {isLoading ? (
-          <div className="w-full flex justify-center">
-            <svg
-              className="animate-spin -ml-1 mr-3 h-5 w-5 text-gray-700"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                className="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                strokeWidth="4"
-              />
-              <path
-                className="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-              />
-            </svg>
-          </div>
-        ) : (
-          <div className="w-full flex justify-center">
-            <Button onClick={HandleAddUserSpace} disabled={isLoading}>
-              {status ? "Remove" : "Add"}
-            </Button>
-          </div>
-        )}
+        <div className="w-full flex justify-center">
+          <Button
+            className="border focus:border-purple-600 hover:bg-card-hover"
+            size="lg"
+            variant="default"
+            onClick={HandleAddUserSpace}
+            disabled={isLoading}
+          >
+            {isLoading ? (
+              <svg
+                className="flex self-center animate-spin h-5 w-5 text-gray-700"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                />
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                />
+              </svg>
+            ) : status ? (
+              'Remove'
+            ) : (
+              'Add'
+            )}
+          </Button>
+        </div>
       </TableCell>
     </TableRow>
   );

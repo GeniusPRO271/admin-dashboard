@@ -94,7 +94,7 @@ function SpaceRow({
     .filter((space) => !excludedSpaceNames.includes(space.Name))
     .map((space) => space.Name);
 
-  const deletesSpace = deleteSpace.bind(null, spaceId);
+  const deletesSpace  = deleteSpace.bind(null, spaceId)
 
   const onClickHandler = async (e: any) => {
     setLoading(true);
@@ -148,9 +148,9 @@ function SpaceRow({
       </TableCell>
       <TableCell>
         <Button
-          className="w-full"
-          size="sm"
-          variant="outline"
+          className="border focus:border-purple-600 hover:bg-card-hover"
+          size="lg"
+          variant="default"
           formAction={deletesSpace}
         >
           Delete

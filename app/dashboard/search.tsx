@@ -39,7 +39,7 @@ export function Search(props: { value?: string, placeholder?: string, route:stri
           setValue(e.currentTarget.value);
         }}
         spellCheck={false}
-        className="w-full bg-white shadow-none appearance-none pl-8"
+        className="w-full bg-background border-border shadow-none appearance-none pl-8"
         placeholder={props.placeholder || 'Search...'}
       />
       {isPending && <Spinner />}

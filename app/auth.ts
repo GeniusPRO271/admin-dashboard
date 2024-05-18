@@ -4,8 +4,7 @@ import Credentials from 'next-auth/providers/credentials';
 import { z } from 'zod';
 import axios from 'axios';
 
-
-async function loginUser(email: string, password:string) {
+async function loginUser(email: string, password: string) {
   const url = 'https://lock-system.onrender.com/v1/user/login';
   const data = {
     Email: email,
@@ -25,23 +24,25 @@ export const { auth, signIn, signOut } = NextAuth({
   ...authConfig,
   providers: [
     Credentials({
+      id: 'domain-login',
+      name: 'Domain Account',
       async authorize(credentials) {
         const parsedCredentials = z
           .object({ email: z.string().email(), password: z.string().min(6) })
           .safeParse(credentials);
- 
+
         if (parsedCredentials.success) {
           const { email, password } = parsedCredentials.data;
-          const user : User = await loginUser(email, password);
+          const user: User = await loginUser(email, password);
           if (!user) return null;
-          else if (user.role != "Admin") return null
+          else if (user.role != 'Admin') return null;
 
-          return user as User
+          return user as User;
         }
-        
+
         console.log('Invalid credentials');
         return null;
-      },
-    }),
-  ],
+      }
+    })
+  ]
 });

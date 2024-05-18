@@ -15,7 +15,7 @@ export async function User() {
   if (!user) {
     return (
       <Link href="/login">
-        <Button variant="outline">Sign In</Button>
+        <Button variant="default" className='border'>Sign In</Button>
       </Link>
     );
   }
@@ -28,7 +28,7 @@ export async function User() {
           await signOut();
         }}
       >
-        <Button variant="outline">Sign Out</Button>
+        <Button variant="default" className='border hover:bg-card-hover'>Sign Out</Button>
       </form>
     </div>
   );

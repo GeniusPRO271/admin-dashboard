@@ -24,7 +24,7 @@ function traverse(space: SpaceInfo, depth: number, rootIndex: number, prevDimens
   const x = prevDimensions.width + rootIndex * 200 + 80;
   const y = depth * 100;
 
-  nodes.push({ id: nodeId, data: { label: space.Name, parentId }, position: { x, y } });
+  nodes.push({ id: nodeId, type: 'nodeStyle', data: { label: space.Name, parentId }, position: { x, y } });
 
   let subWidth = 0;
   let subHeight = 0;
@@ -63,6 +63,7 @@ function traverse(space: SpaceInfo, depth: number, rootIndex: number, prevDimens
     space.Devices.forEach(device => {
       const deviceNode = {
         id: 'device-' + device.ID.toString(),
+        type: 'nodeStyle',
         data: { label: device.Name, parentId: nodeId },
         position: { x: x, y: deviceY }
       };
@@ -82,6 +83,8 @@ export async function initSpaces() : Promise<{reactFlowNodes: Node[], connection
     if (spaces.length > 0) {
       const reactFlowNodes = arrangeNodes(spaces);
       const connections = generateConnections(spaces);
+      console.log("reactFlowNodes: ", reactFlowNodes)
+      console.log("connections: ", connections)
       return {reactFlowNodes, connections}
     } else return {reactFlowNodes:[], connections:[]}
 
@@ -136,3 +139,6 @@ export const nodeTypes = {
   "position-logger": PositionLoggerNode,
   // Add any of your custom nodes here!
 } satisfies NodeTypes;
+
+
+
