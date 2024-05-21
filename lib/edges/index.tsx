@@ -28,27 +28,19 @@ export const generateConnections = (spaces:SpaceInfo[]) => {
 
 
 export const initialEdges = [
-  { id: '2->3', source: '2', target: '3', animated: true },
-  { id: '3->12', source: '3', target: '12', animated: true },
-  { id: '2->4', source: '2', target: '4', animated: true },
-  { id: '4->8', source: '4', target: '8', animated: true },
-  {
-    id: '8->device-1',
-    source: '8',
-    target: 'device-1',
-    animated: true
-  },
-  { id: '2->6', source: '2', target: '6', animated: true },
-  { id: '2->11', source: '2', target: '11', animated: true },
-  { id: '2->13', source: '2', target: '13', animated: true },
-  { id: '3->12', source: '3', target: '12', animated: true },
-  { id: '4->8', source: '4', target: '8', animated: true },
-  {
-    id: '8->device-1',
-    source: '8',
-    target: 'device-1',
-    animated: true
-  }
+  { id: 'e1-2', source: '1', target: '2', type: 'smoothstep' },
+  { id: 'e2-3', source: '2', target: '3', type: 'smoothstep' },
+  { id: 'e2-4', source: '2', target: '4', type: 'smoothstep' },
+  { id: 'e2-5', source: '2', target: '5', type: 'smoothstep' },
+  { id: 'e3-6', source: '3', target: '6', type: 'smoothstep' },
+  { id: 'e4-7', source: '4', target: '7', type: 'smoothstep' },
+  { id: 'e5-8', source: '5', target: '8', type: 'smoothstep' },
+  { id: 'e7-9', source: '7', target: '9', type: 'smoothstep' },
+  { id: 'e9-10', source: '9', target: '10', type: 'smoothstep' },
+  { id: 'e10-11', source: '10', target: '11', type: 'smoothstep' },
+  { id: 'e11-12', source: '11', target: '12', type: 'smoothstep' },
+  { id: 'e12-13', source: '12', target: '13', type: 'smoothstep' },
+  { id: 'e13-14', source: '13', target: '14', type: 'smoothstep' },
 ] satisfies Edge[];
 
 export const edgeTypes = {

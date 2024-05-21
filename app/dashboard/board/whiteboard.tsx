@@ -2,7 +2,6 @@
 import { useCallback, useMemo, useState } from 'react';
 import {
   Background,
-  Controls,
   ReactFlow,
   addEdge,
   useNodesState,
@@ -10,7 +9,6 @@ import {
   OnConnect,
   Node,
   Edge,
-  Panel
 } from 'reactflow';
 
 import 'reactflow/dist/style.css';

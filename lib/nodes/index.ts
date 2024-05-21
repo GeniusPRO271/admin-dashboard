@@ -91,47 +91,20 @@ export async function initSpaces() : Promise<{reactFlowNodes: Node[], connection
 }
 
 export const testInit = [
-  { id: '2', data: { label: 'Floor 1' }, position: { x: 0, y: 0 } },
-  {
-    id: '3',
-    data: { label: 'Floor 2', parentId: '2' },
-    position: { x: 0, y: 100 }
-  },
-  {
-    id: '12',
-    data: { label: 'Classroom 202', parentId: '3' },
-    position: { x: 0, y: 200 }
-  },
-  {
-    id: '4',
-    data: { label: 'Floor 3', parentId: '2' },
-    position: { x: 150, y: 100 }
-  },
-  {
-    id: '8',
-    data: { label: 'Classroom 301', parentId: '4' },
-    position: { x: 150, y: 200 }
-  },
-  {
-    id: 'device-1',
-    data: { label: 'Smart lock', parentId: '8' },
-    position: { x: 450, y: 300 }
-  },
-  {
-    id: '6',
-    data: { label: 'Classroom 110', parentId: '2' },
-    position: { x: 300, y: 100 }
-  },
-  {
-    id: '11',
-    data: { label: 'Classroom 201', parentId: '2' },
-    position: { x: 450, y: 100 }
-  },
-  {
-    id: '13',
-    data: { label: 'Classroom 204', parentId: '2' },
-    position: { x: 600, y: 100 }
-  }
+  { id: '1', type: 'input', data: { label: 'Advanced implementation of AuthController.' }, position: { x: 250, y: 0 } },
+  { id: '2', data: { label: 'Advanced development of Dish Controller' }, position: { x: 250, y: 100 } },
+  { id: '3', data: { label: "Merge branch 'development/user-dto' into development/dto" }, position: { x: 0, y: 200 } },
+  { id: '4', data: { label: "Merge branch 'development/order-dto' into development/dto" }, position: { x: 250, y: 200 } },
+  { id: '5', data: { label: "Merge branch 'development/dish-dto' into development/dto" }, position: { x: 500, y: 200 } },
+  { id: '6', data: { label: 'Finished implementing the User DTOs as part of the DTO development.' }, position: { x: 0, y: 300 } },
+  { id: '7', data: { label: 'Finished implementing the Order DTOs as part of the DTO development.' }, position: { x: 250, y: 300 } },
+  { id: '8', data: { label: 'Advanced development of Dish Controller.' }, position: { x: 500, y: 300 } },
+  { id: '9', data: { label: 'Start development of Dish Controller' }, position: { x: 250, y: 400 } },
+  { id: '10', data: { label: 'Finished implementing the Dish DTOs as part of the DTO development.' }, position: { x: 0, y: 500 } },
+  { id: '11', data: { label: 'Revert "Finished implementing the Dish DTOs as part of the DTO development."' }, position: { x: 250, y: 500 } },
+  { id: '12', data: { label: 'Finished implementing the Dish DTOs as part of the DTO development.' }, position: { x: 500, y: 500 } },
+  { id: '13', data: { label: 'Create Order and Basket Model for Restaurant API' }, position: { x: 250, y: 600 } },
+  { id: '14', data: { label: 'Add User, Dish, Rating, and Role models.' }, position: { x: 250, y: 700 } },
 ] satisfies Node[]
 
 
