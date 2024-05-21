@@ -1,57 +1,83 @@
-<div align="center"><strong>Next.js 14 Admin Dashboard Template</strong></div>
-<div align="center">Built with the Next.js App Router</div>
-<br />
-<div align="center">
-<a href="https://next-admin-dash.vercel.app/">Demo</a>
-<span> · </span>
-<a href="https://vercel.com/templates/next.js/admin-dashboard-tailwind-postgres-react-nextjs">Clone & Deploy</a>
-<span>
-</div>
+# Admin Dashboard 
 
-## Overview
+Welcome to the Admin Dashboard for Smart Lock Management! This dashboard is designed to help administrators manage user, spaces, devices, and access control for unlocking locks.
 
-This is a starter template using the following stack:
+Features
 
-- Framework - [Next.js 14](https://nextjs.org/)
-- Language - [TypeScript](https://www.typescriptlang.org)
-- Auth - [NextAuth.js](https://next-auth.js.org)
-- Database - [Postgres](https://vercel.com/postgres)
-- Deployment - [Vercel](https://vercel.com/docs/concepts/next.js/overview)
-- Styling - [Tailwind CSS](https://tailwindcss.com)
-- Components - [Shadcn UI](https://ui.shadcn.com/)
-- Analytics - [Vercel Analytics](https://vercel.com/analytics)
-- Formatting - [Prettier](https://prettier.io)
+  1. User Management: Create, update, and delete user profiles.
 
-This template uses the new Next.js App Router. This includes support for enhanced layouts, colocation of components, tests, and styles, component-level data fetching, and more.
+  2. Space Management: Manage different spaces.
+  
+  3. Device Management: Add, update, and monitor devices.
 
-## Getting Started
+  4. Access Control: Grant and revoke access permissions for users to unlock specific locks.
 
-During the deployment, Vercel will prompt you to create a new Postgres database. This will add the necessary environment variables to your project.
+  5. Monitoring: Track device status and user access on a beautiful board.
 
-Inside the Vercel Postgres dashboard, create a table based on the schema defined in this repository.
+## Installation
 
+To install and run the Admin Dashboard, follow these steps:
 ```
-CREATE TABLE users (
-  id SERIAL PRIMARY KEY,
-  email VARCHAR(255) NOT NULL,
-  name VARCHAR(255),
-  username VARCHAR(255)
-);
+git clone https://github.com/GeniusPRO271/admin-dashboard.git
+
+cd admin-dashboard
 ```
 
-Insert a row for testing:
-
-```
-INSERT INTO users (id, email, name, username) VALUES (1, 'me@site.com', 'Me', 'username');
-```
-
-Copy the `.env.example` file to `.env` and update the values.
-
-Finally, run the following commands to start the development server:
-
+Install dependencies:
 ```
 pnpm install
+```
+
+Set up the environment variables:
+Create a .env file in the root directory and add your configuration. Refer to the Configuration section for more details.
+
+Run the application:
+
+```
 pnpm dev
 ```
 
-You should now be able to access the application at http://localhost:3000.
+## Usage
+
+Once the application is running, you can access the dashboard at http://localhost:3000. Log in with your admin credentials to start managing users, spaces, devices, and access controls.
+
+User Management
+
+  - Add User: Navigate to the Users section and click "Create User". Fill in the required details and save.
+
+  - Edit User: Click on a user role to edit his details.
+
+Space Management
+
+  - Add Space: Go to the Spaces section and click "Create Space". Provide the space details and save.
+
+  - Edit Space: Click on a space to update its information.
+
+  - Delete Space: Select a space and click "Delete".
+
+Device Management
+
+  - Sync Device: In the Devices section, click "Sync Device". Wait for the sync to finished and the system will be sync with your tuya account.
+
+Access Control
+
+  - Grant Access: Go to the Board section, choose a user, and select "Add" to add access to the space.
+
+  - Revoke Access: o to the Board section, choose a user, and select "Remove" to remove access to the space.
+
+# Configuration
+
+The application requires certain environment variables to function correctly. Create a .env file in the root directory and add the following variables:
+
+# Database configuration
+- POSTGRES_DATABASE=
+- POSTGRES_HOST=
+- POSTGRES_PASSWORD=
+- POSTGRES_PRISMA_URL=
+- POSTGRES_URL=
+- POSTGRES_URL_NON_POOLING=
+- POSTGRES_URL_NO_SSL=
+- POSTGRES_USER=
+
+# Authentication configuration
+AUTH_SECRET= " $ openssl rand -base64 32 "
