@@ -1,10 +1,10 @@
 'use server';
 
-import { signIn } from 'app/auth';
-import { CreateUser, UserRegister, addUserToSpace, changeSpaceOfDevice, deleteSpacebyId, deleteUserOfSpacebyId, syncDevices, updateSpaceById } from '@/lib/db';
+import { CreateUser, UpdateUserRole, UserRegister, addUserToSpace, changeSpaceOfDevice, deleteSpacebyId, deleteUserOfSpacebyId, syncDevices, updateSpaceById } from '@/lib/db';
 import { AuthError } from 'next-auth';
 import { revalidatePath } from 'next/cache';
 import { space } from 'postcss/lib/list';
+import { signIn } from './api/auth/[...nextauth]';
 
 export async function createUser(body: UserRegister) {
   await CreateUser(body);
@@ -32,6 +32,12 @@ export async function updateSpace(spaceId: number, spaceName: string, parentSpac
   revalidatePath('/dashboard/spaces');
 }
 
+export async function updateUserRole(userId: number, roleId: number) {
+  console.log("updating role")
+  await UpdateUserRole(userId, roleId);
+  revalidatePath('/dashboard');
+}
+
 export async function changeDeviceSpace(spaceId: number, deviceId: number) {
   console.log("updating device")
   await changeSpaceOfDevice(spaceId, deviceId);
@@ -50,7 +56,8 @@ export async function authenticate(
   formData: FormData,
 ) {
   try {
-    await signIn('domain-login', formData);
+    console.log(formData)
+    await signIn('credentials', formData);
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {

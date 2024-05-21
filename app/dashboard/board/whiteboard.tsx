@@ -17,7 +17,7 @@ import 'reactflow/dist/style.css';
 
 import { edgeTypes } from '../../../lib/edges';
 import AllowedUserTableView from './allowed-user-table';
-import { TextUpdaterNode } from 'app/dashboard/board/custome-node';
+import { DeviceNode, TextUpdaterNode } from 'app/dashboard/board/custome-node';
 import { Users } from 'lucide-react';
 
 export default function WhiteBoard({
@@ -29,7 +29,7 @@ export default function WhiteBoard({
 }) {
   const [nodes, , onNodesChange] = useNodesState<Node>(reactFlowNodes);
   const [edges, setEdges, onEdgesChange] = useEdgesState(reactFlowConnections);
-  const nodeTypes = useMemo(() => ({ nodeStyle: TextUpdaterNode }), []);
+  const nodeTypes = useMemo(() => ({ nodeStyle: TextUpdaterNode, deviceNode: DeviceNode}), []);
   const onConnect: OnConnect = useCallback(
     (connection) => setEdges((edges) => addEdge(connection, edges)),
     [setEdges]
@@ -39,8 +39,12 @@ export default function WhiteBoard({
   const [showPanel, setShowPanel] = useState<boolean>(false);
   function onNodeClickHandler(e: any, node: Node) {
     console.log(node);
-    setSelectedNode(node.id);
-    setShowPanel(true);
+    if(node.type == "nodeStyle"){
+      setSelectedNode(node.id);
+      setShowPanel(true);
+    } else {
+      setShowPanel(false);
+    }
   }
   return (
     <>
@@ -59,7 +63,7 @@ export default function WhiteBoard({
       </ReactFlow>
       <div className="absolute bottom-0 z-30 overflow-y-hidden pointer-events-none h-2/4 right-4 w-[600px]">
         <div
-          className="absolute top-0 right-0 bottom-0 h-full rounded-t-lg border-t border-l border-r overflow-hidden pointer-events-auto bg-card w-full"
+          className="absolute top-0 right-0 bottom-0 h-full rounded-t-lg border-t border-l border-r overflow-hidden pointer-events-auto bg-card w-full pb-10"
           style={{
             transform: showPanel
               ? 'none'

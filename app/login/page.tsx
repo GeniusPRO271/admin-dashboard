@@ -4,10 +4,13 @@ import { Spinner } from '@/components/icons';
 import { Button } from '@/components/ui/button';
 import LoginForm from '@/components/ui/login-form';
 import { authenticate } from 'app/actions';
+import { useSearchParams } from 'next/navigation';
 import { useFormState, useFormStatus } from 'react-dom';
 
 export default function LoginPage() {
   const [errorMessage, dispatch] = useFormState(authenticate, undefined);
+
+
   return (
     <main className="flex items-center justify-center md:h-screen">
       <section className="bg-background w-full">

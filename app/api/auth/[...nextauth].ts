@@ -1,11 +1,10 @@
-import NextAuth, { User } from 'next-auth';
-import { authConfig } from './auth.config';
-import Credentials from 'next-auth/providers/credentials';
-import { z } from 'zod';
 import axios from 'axios';
-
+import NextAuth, { User } from 'next-auth';
+import CredentialsProvider from 'next-auth/providers/credentials';
+import { z } from 'zod';
+import { authConfig } from './auth.config';
 async function loginUser(email: string, password: string) {
-  const url = 'https://lock-system.onrender.com/v1/user/login';
+  const url = 'https://lock-system.up.railway.app/v1/user/login';
   const data = {
     Email: email,
     Password: password
@@ -23,10 +22,13 @@ async function loginUser(email: string, password: string) {
 export const { auth, signIn, signOut } = NextAuth({
   ...authConfig,
   providers: [
-    Credentials({
-      id: 'domain-login',
-      name: 'Domain Account',
-      async authorize(credentials) {
+    CredentialsProvider({
+      id: 'credentials',
+      name: 'credentials',
+      type: 'credentials',
+      credentials: {},
+      async authorize(credentials, req) {
+        console.log("request= ", req)
         const parsedCredentials = z
           .object({ email: z.string().email(), password: z.string().min(6) })
           .safeParse(credentials);
@@ -44,5 +46,5 @@ export const { auth, signIn, signOut } = NextAuth({
         return null;
       }
     })
-  ]
+  ],
 });

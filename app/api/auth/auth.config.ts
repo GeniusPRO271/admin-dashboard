@@ -1,25 +1,19 @@
 import type { NextAuthConfig } from 'next-auth';
 
 export const authConfig = {
-  
+  session: {
+    strategy: "jwt"
+  },
   pages: {
     signIn: '/login'
   },
   callbacks: {
-    jwt: async ({ token, user }) => {
-      // First time JWT callback is run, user object is available
-      if (user && user.id && user.role) {
-        token.id = user.id;
-        token.role = user.role;
-      }
-      return token;
-    },
-    session: async ({ session, token }) => {
-      if (token && token.id && token.role) {
-        session.id = token.id;
-        session.user.role = token.role;
-      }
-      return session;
+    async redirect({ url, baseUrl }) {
+      // Allows relative callback URLs
+      if (url.startsWith("/")) return `${baseUrl}/dashboard`
+      // Allows callback URLs on the same origin
+      else if (new URL(url).origin === baseUrl) return `${baseUrl}/dashboard`
+      return `${baseUrl}/dashboard`
     },
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;

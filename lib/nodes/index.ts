@@ -63,7 +63,7 @@ function traverse(space: SpaceInfo, depth: number, rootIndex: number, prevDimens
     space.Devices.forEach(device => {
       const deviceNode = {
         id: 'device-' + device.ID.toString(),
-        type: 'nodeStyle',
+        type: 'deviceNode',
         data: { label: device.Name, parentId: nodeId },
         position: { x: x, y: deviceY }
       };

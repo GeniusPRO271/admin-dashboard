@@ -30,7 +30,7 @@ function AllowedUserTableView({ spaceId }: { spaceId: string }) {
   if (!isLoading && users && allowed) {
     return (
       <>
-        <form className="rounded-lg bg-card h-full w-auto">
+        <form className="rounded-lg bg-card h-full w-full overflow-auto">
           <Table>
             <TableHeader>
               <TableRow>
@@ -40,17 +40,17 @@ function AllowedUserTableView({ spaceId }: { spaceId: string }) {
                 <TableHead>Is Allowed</TableHead>
               </TableRow>
             </TableHeader>
-            <TableBody>
-              {users.map((user) => (
-                <UserRow
-                  key={user.id}
-                  user={user}
-                  allowed={allowed}
-                  setAllowed={setAllowed}
-                  spaceId={Number(spaceId)}
-                />
-              ))}
-            </TableBody>
+              <TableBody>
+                {users.map((user) => (
+                  <UserRow
+                    key={user.id}
+                    user={user}
+                    allowed={allowed}
+                    setAllowed={setAllowed}
+                    spaceId={Number(spaceId)}
+                  />
+                ))}
+              </TableBody>
           </Table>
         </form>
       </>

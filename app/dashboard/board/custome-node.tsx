@@ -18,3 +18,15 @@ export function TextUpdaterNode({ data }: { data: any }) {
     </div>
   );
 }
+
+export function DeviceNode({ data }: { data: any }) {
+  return (
+    <div>
+      <Handle type="target" position={Position.Top}/>
+      <div className='bg-card border border-orange-600 rounded-lg p-2 hover:border-orange-600 focus:border-orange-600'>
+        <label htmlFor="text" className=' text-card-foreground'>{data.label}</label>
+      </div>
+      <Handle type="source" position={Position.Bottom} id="a" />
+    </div>
+  );
+}

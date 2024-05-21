@@ -1,8 +1,8 @@
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import { getToken } from "next-auth/jwt"
-import { auth, signOut } from '../auth';
 import Link from 'next/link';
+import { auth, signOut } from 'app/api/auth/[...nextauth]';
 
 export async function User() {
   const session = await auth();

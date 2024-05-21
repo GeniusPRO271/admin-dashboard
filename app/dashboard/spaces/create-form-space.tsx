@@ -9,6 +9,7 @@ import {
   SpaceRegister,
   UserRegister
 } from '@/lib/db';
+import { XIcon } from 'lucide-react';
 import { space } from 'postcss/lib/list';
 import React, { useState } from 'react';
 
@@ -53,9 +54,9 @@ function CreateSpaceFormView({
       {isOpen && dropdownSpaces && (
         <div className="flex flex-col absolute h-fit w-2/4 z-50 place-self-center border rounded-lg border-transparent p-3">
           <div className="place-self-center w-full bg-card rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0">
-            <div className="flex w-full items-end justify-end px-2">
-              <span className="cursor-pointer" onClick={() => setIsOpen(false)}>
-                x
+            <div className="flex w-full items-end justify-end px-2 py-2">
+              <span className="cursor-pointer text-card-foreground" onClick={() => setIsOpen(false)}>
+                <XIcon/>
               </span>
             </div>
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">

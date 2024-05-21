@@ -1,4 +1,4 @@
-import { authConfig } from 'app/auth.config';
+import { authConfig } from 'app/api/auth/auth.config';
 import NextAuth from 'next-auth';
 
  
